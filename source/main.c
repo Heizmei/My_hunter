@@ -1,20 +1,22 @@
 /*
-** EPITECH PROJECT, 2023
-** main
+** EPITECH PROJECT, 2024
+** my_hunter_tek_1_re
 ** File description:
-** main for my_hunter
+** main
 */
-#include "../include/my.h"
 
-int main(int ac, char **av)
+#include "my_hunter.h"
+
+int main(int argc, char const *argv[])
 {
-    if (ac == 1) {
-        background();
-    }
-    if (ac > 1 && (av[1][0] == '-' && av[1][1] == 'h')) {
-        my_putstr("that a duck hunt with a space ship \n");
-        my_putstr("left click for kill the space ship \n");
-    } else {
+    if (argc > 1 && (argv[1][0] == '-' && argv[1][1] == 'h')) {
+        my_putstr("a duck hunt but the duck is a asteroid\n");
+        my_putstr("left click for explosed the asteroid\n");
         return 0;
     }
+    if (argc == 1) {
+        init_value();
+        return 0;
+    }
+    return 84;
 }

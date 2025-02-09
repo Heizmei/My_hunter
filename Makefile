@@ -1,45 +1,48 @@
 ##
 ## EPITECH PROJECT, 2024
-## PSU
+## makefile
 ## File description:
-## Makefile
+## makefile
 ##
 
+SRC		=		my_hunter.c	\
+				my_putstr.c	\
+				event_while.c	\
+				disp_sprite.c	\
+				main_loop.c		\
+				set_texture.c	\
+				free_funct.c	\
+				click_event.c	\
+				while_clock.c	\
+				game_over_screen.c	\
+				menu.c	\
 
-SRC			=	source/animation.c	\
-				source/background.c	\
-				source/event_manager.c	\
-				source/my_pustr.c	\
-				source/sprite.c	\
+DIR_SRC        =    $(addprefix source/, $(SRC))
 
-MAIN_SRC	=	source/main.c						\
+MAIN_SRC    =    source/main.c                        \
 
-TEST		=	\
+TEST        =    unit_test.c\
 
-DIR_TESTS	=	$(addprefix tests/, $(TEST))
+DIR_TESTS    =    $(addprefix tests/, $(TEST))
 
-OBJ_DIR_SRC	=	$(SRC:.c=.o)
+OBJ_DIR_SRC    =    $(DIR_SRC:.c=.o)
 
-OBJ_MAIN	=	$(MAIN_SRC:.c=.o)
+OBJ_MAIN    =    $(MAIN_SRC:.c=.o)
 
-OBJ			=	$(OBJ_DIR_SRC) $(OBJ_MAIN)
+OBJ            =    $(OBJ_DIR_SRC) $(OBJ_MAIN)
 
+CPPFLAGS    =    -I include/	\
 
-CPPFLAGS	=	-I include/	\
+CFLAGS        =    -Wall -Wextra -ggdb3
 
+GRAPHICS	= -lcsfml-graphics -lcsfml-system -lcsfml-audio -lcsfml-window
 
-CFLAGS		=	-Wall -Wextra -ggdb3
+NAME        =    my_hunter
 
-GRAPHICS	=	-lcsfml-graphics -lcsfml-system -lcsfml-audio -lcsfml-window
-
-NAME		=	my_hunter
-
-
-$(NAME):	$(OBJ)
-		gcc -o $(NAME) $(OBJ) $(GRAPHICS)
+$(NAME):    $(OBJ)
+		gcc -o $(NAME) -g $(CFLAGS) $(OBJ) $(GRAPHICS)
 
 all: $(NAME)
-
 
 clean:
 		rm -f $(OBJ)
@@ -49,14 +52,14 @@ fclean: clean
 		rm -rf *.gcov
 		rm -f $(NAME)
 
-re:		fclean all
+re:        fclean all
 
-unit_tests:	re
+unit_tests:    re
 		mkdir unit_tests
 		gcc -o unit_tests/unit_tests $(DIR_SRC) $(DIR_TESTS)\
 		$(CPPFLAGS) $(LDLIBS) --coverage -lcriterion
 
-tests_run:	unit_tests
+tests_run:    unit_tests
 		./unit_tests/unit_tests
 
 .PHONY: all clean fclean re tests_run
